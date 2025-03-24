@@ -1,14 +1,14 @@
 """
 Prototype Steamlit app for word vector arithmetic.
-The app imports vector db from word2vec-google-news-300.
+The app imports vector_db from glove-wiki-gigaword-100, not word2vec-google-news-300 since it is too large to run for Streamlit.
 """
 import streamlit as st
 import gensim.downloader as api
 
 @st.cache_resource
 def load_vector_db():
-    """Load the Google News pre-trained word vectors. This model has 300-dimensional vectors for 3 million words and phrases."""
-    vector_db = api.load('word2vec-google-news-300')
+    """Load a pre-trained word vectors. This model has 100-dimensional vectors for 1.2 million words and phrases."""
+    vector_db = api.load('glove-wiki-gigaword-100')
     return vector_db
 
 
@@ -19,7 +19,8 @@ def word_vector_arithmetic(vector_db, pos1, pos2, neg1):
 
 def main():
     """Main function for the Streamlit app"""
-    st.title("Google News Word Vector Arithmetic Explorer")
+    st.title("Wikipedia and Gigaword Vector Arithmetic Explorer")
+    st.write("Using pre-trained glove-wiki-gigaword-100 model.")
     st.write(
         "Enter two positive words and one negative word, and we'll show words similar to the result of: **Positive word 1 - Negative word + Positive word 2**")
 
