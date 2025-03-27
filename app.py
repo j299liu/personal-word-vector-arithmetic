@@ -29,9 +29,9 @@ def main():
         "Enter two positive words and one negative word, and we'll show words similar to the result of: **Positive word 1 - Negative word + Positive word 2**")
 
     with st.form("word_vector_form"):
-        pos1 = st.text_input("Positive word 1")
-        neg1 = st.text_input("Negative word")
-        pos2 = st.text_input("Positive word 2")
+        pos1 = st.text_input("Positive word 1").lower().strip()
+        neg1 = st.text_input("Negative word").lower().strip()
+        pos2 = st.text_input("Positive word 2").lower().strip()
         submitted = st.form_submit_button("Compute Similarity")
 
         if submitted:
