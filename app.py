@@ -13,8 +13,11 @@ def load_vector_db():
 
 
 def word_vector_arithmetic(vector_db, pos1, pos2, neg1):
-    results = vector_db.most_similar(positive=[pos1, pos2], negative=[neg1], topn=10)
-    return results
+    try:
+        results = vector_db.most_similar(positive=[pos1, pos2], negative=[neg1], topn=10)
+        return results
+    except KeyError as e:
+        return str(e)  # return error message as string
 
 
 def main():
@@ -38,7 +41,7 @@ def main():
                     answer = word_vector_arithmetic(vector_db, pos1, pos2, neg1)
 
                 if isinstance(answer, str):
-                    st.error(f"Error: {answer}")
+                    st.error(f"Oops! One or more words are not in the vocabulary. Please try different words.\n\nDetails: {answer}")
                 else:
                     st.subheader("Top 10 Similar Words")
                     for word, score in answer:
