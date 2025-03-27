@@ -17,7 +17,8 @@ def word_vector_arithmetic(vector_db, pos1, pos2, neg1):
         results = vector_db.most_similar(positive=[pos1, pos2], negative=[neg1], topn=10)
         return results
     except KeyError as e:
-        return str(e)  # return error message as string
+        missing_word = str(e).split("'")[1] if "'" in str(e) else "a word"
+        return missing_word  # return error message as string
 
 
 def main():
@@ -41,7 +42,7 @@ def main():
                     answer = word_vector_arithmetic(vector_db, pos1, pos2, neg1)
 
                 if isinstance(answer, str):
-                    st.error(f"Oops! One or more words are not in the vocabulary. Please try different words.\n\nDetails: {answer}")
+                    st.write(f"Oops! The word '{answer}' is not in the database. Please change to different words.\n\nNote: The word vector used in this demo, based on the GloVe Wiki-Gigaword-100 model, was trained on only 1.2 million words from the 2014 Wikipedia dump and Gigaword 5, so it does not cover all possible English vocabulary.")
                 else:
                     st.subheader("Top 10 Similar Words")
                     for word, score in answer:
